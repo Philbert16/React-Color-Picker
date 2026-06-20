@@ -174,7 +174,7 @@ export default function ColorPicker() {
         <header className="pickerHeader">
           <div className="logoGroup">
             <span className="logoIcon">🎨</span>
-            <h1>ChromaCraft</h1>
+            <h1>Pro Color Palette</h1>
           </div>
           <p className="subtitle">The professional color palette utility & contrast tool</p>
         </header>
