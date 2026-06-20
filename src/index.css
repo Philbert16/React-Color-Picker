@@ -1,0 +1,805 @@
+/* 
+  ChromaCraft: Professional Color Palette Utility & Contrast Tool Styles
+  Design Theme: Premium Slate-Dark Theme with Glowing Accents & Glassmorphism
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* Theme Colors */
+  --bg-gradient-start: #0f172a;
+  --bg-gradient-end: #020617;
+  --card-bg: rgba(30, 41, 59, 0.55);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-hover-border: rgba(255, 255, 255, 0.15);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+
+  /* Brand Accents */
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-light: rgba(99, 102, 241, 0.15);
+
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.15);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.15);
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.15);
+  --color-info: #0ea5e9;
+  --color-info-bg: rgba(14, 165, 233, 0.15);
+
+  /* Global Properties */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 10px 25px -10px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset & Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-gradient-end);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-gradient-end);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 5px;
+  border: 2px solid var(--bg-gradient-end);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* App Layout Wrapper */
+.colorPickerApp {
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.15), transparent 45%),
+              radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.1), transparent 50%),
+              linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Main Container Card */
+.colorPickerContainer {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header styling */
+.pickerHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 24px;
+}
+
+.logoGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoIcon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 10px rgba(99, 102, 241, 0.3));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(5deg); }
+}
+
+.pickerHeader h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Dashboard Grid System */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.dashboardColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* LEFT COLUMN: Visual Preview & Picker Inputs */
+.visualColumn {
+  position: sticky;
+  top: 40px;
+}
+
+/* Color Canvas display card */
+.colorDisplay {
+  height: 280px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md), var(--shadow-inner);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.displayOverlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+  text-align: center;
+  padding: 24px;
+  width: 100%;
+}
+
+.contrastBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid;
+  opacity: 0.85;
+}
+
+.selectedColorHex {
+  font-family: var(--font-mono);
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.canvasCopyButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.canvasCopyButton:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.canvasCopyButton:active {
+  transform: translateY(0);
+}
+
+.canvasCopyButton .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Controls input row */
+.controlsRow {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: flex-end;
+  background: rgba(15, 23, 42, 0.4);
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--card-border);
+}
+
+.controlLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Custom interactive Color Picker Button */
+.pickerControlWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.pickerInputContainer {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+/* Hide native color picker but keep it clickable */
+.nativeColorPicker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.customPickerBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-sm), var(--shadow-inner);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.customPickerBtn:hover {
+  transform: scale(1.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.pickerPip {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
+  background: transparent;
+}
+
+/* HEX Textbox styling */
+.textControlWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.textInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputHash {
+  position: absolute;
+  left: 14px;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.hexTextfield {
+  width: 100%;
+  height: 48px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 0 14px 0 32px;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+.hexTextfield:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+/* Save to Palette button */
+.saveSwatchButton {
+  height: 48px;
+  padding: 0 20px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.saveSwatchButton:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+.saveSwatchButton:active {
+  transform: translateY(0);
+}
+
+.saveSwatchButton .icon {
+  width: 16px;
+  height: 16px;
+}
+
+
+/* RIGHT COLUMN: Info Cards & Collections */
+.infoCard {
+  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: var(--transition);
+}
+
+.infoCard:hover {
+  border-color: var(--card-hover-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Color formats row lists */
+.formatList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formatRow {
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  height: 44px;
+  padding: 0 8px 0 14px;
+}
+
+.formatLabel {
+  width: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.formatValue {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowCopyButton {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.rowCopyButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+}
+
+.rowCopyButton .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Accessibility contrast grid */
+.contrastTestGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contrastTestItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contrastPreview {
+  height: 64px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-inner);
+}
+
+.contrastPreview .previewText {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.contrastPreview .previewSub {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.contrastMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.contrastRatioValue {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.ratingBadge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* WCAG Rating badge classes */
+.ratingBadge.pass-aaa {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.ratingBadge.pass-aa {
+  background: var(--color-info-bg);
+  color: var(--color-info);
+}
+
+.ratingBadge.pass-large {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.ratingBadge.fail {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+/* Curated preset swatches grid */
+.swatchesGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+}
+
+.swatchBtn {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.swatchBtn:hover {
+  transform: scale(1.15);
+}
+
+.swatchBtn.active {
+  border-color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+}
+
+/* Center pip when active */
+.swatchIndicator {
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  opacity: 0;
+  transition: var(--transition);
+  mix-blend-mode: difference;
+}
+
+.swatchBtn.active .swatchIndicator {
+  opacity: 0.85;
+}
+
+/* Saved Palette section specific styling */
+.savedCard {
+  min-height: 130px;
+}
+
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.savedCount {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 100px;
+  border: 1px solid var(--card-border);
+}
+
+.emptySaved {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  border: 1px dashed var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+
+.emptySaved p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Delete swatch button on custom swatches */
+.customSwatch {
+  border-radius: var(--radius-md) !important; /* Make custom swatches slightly squared for distinction */
+}
+
+.deleteSwatchBtn {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 14px;
+  height: 14px;
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.15s ease, transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.swatchBtn.customSwatch:hover .deleteSwatchBtn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.deleteSwatchBtn:hover {
+  background-color: #dc2626 !important;
+  transform: scale(1.15) !important;
+}
+
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1024px) {
+  .colorPickerContainer {
+    max-width: 768px;
+    padding: 28px;
+  }
+  
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  
+  .visualColumn {
+    position: static;
+  }
+}
+
+@media (max-width: 580px) {
+  .colorPickerApp {
+    padding: 16px 12px;
+  }
+  
+  .colorPickerContainer {
+    padding: 20px;
+    gap: 24px;
+    border-radius: var(--radius-lg);
+  }
+  
+  .pickerHeader {
+    padding-bottom: 18px;
+  }
+  
+  .pickerHeader h1 {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .colorDisplay {
+    height: 220px;
+  }
+  
+  .selectedColorHex {
+    font-size: 2.2rem;
+  }
+  
+  .controlsRow {
+    grid-template-columns: auto 1fr;
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .saveSwatchButton {
+    grid-column: span 2;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .contrastTestGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .swatchesGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 380px) {
+  .swatchesGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .controlsRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .pickerControlWrapper, .textControlWrapper {
+    width: 100%;
+  }
+  
+  .pickerInputContainer {
+    width: 100%;
+    height: 48px;
+  }
+  
+  .customPickerBtn {
+    border-radius: var(--radius-md);
+  }
+  
+  .saveSwatchButton {
+    grid-column: span 1;
+  }
+}
